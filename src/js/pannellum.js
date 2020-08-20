@@ -1765,7 +1765,15 @@ function createHotSpot(hs) {
         span.innerHTML = escapeHTML(hs.text);
 
     var a;
-    if (hs.video) {
+    if (hs.info) {
+        div.onclick = div.ontouchend = function() {
+            fireEvent('clickInfoHotspot', hs.info)
+            return false;
+        };
+        div.className += ' pnlm-pointer';
+        span.className += ' pnlm-pointer';
+        renderContainer.appendChild(div);
+    } else if (hs.video) {
         var video = document.createElement('video'),
             vidp = hs.video;
         if (config.basePath && !absoluteURL(vidp))
